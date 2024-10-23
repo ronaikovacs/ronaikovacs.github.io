@@ -1,17 +1,15 @@
 html {
-    width: 100%;
+    width: 97%;
     height: 100%;
 }
 
 body {
-    width: inherit;
-    height: inherit;
-    align-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 [seamless] {
     border: none;
-    height: inherit;
-    width: inherit;
-    align-self: center;
+    height: 100%;
+    width: 100%;
 }
