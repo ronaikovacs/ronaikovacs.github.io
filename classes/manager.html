@@ -1,0 +1,36 @@
+Class diagram for the Game Manager and Level
+<pre class="mermaid">
+    classDiagram
+
+    class GameManager{
+        +CurrentLevel: int
+        +GameOver(win: bool)
+    }
+
+    class LevelBuilder{
+        -Import(LevelDescription: string): Level
+        -Instantiate(prefab: Prefab)
+    }
+
+    class Level {
+        -Blocks: Blocks[*]
+        -Start: Block
+    }
+
+    GameManager *-- "Levels*" Level
+    GameManager *-- "-Builder" LevelBuilder
+    GameManager "Manager" <-- Level
+    Level <.. LevelBuilder
+
+    note for LevelBuilder "Builds level from serialized level description"
+
+</pre>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const config = {
+      startOnLoad: true,
+      securityLevel: 'loose',
+    };
+  mermaid.initialize(config);
+</script>

@@ -1,0 +1,43 @@
+Class diagram for characters of the game
+<pre class="mermaid">
+
+    classDiagram
+    
+    Character <|-- Player
+    Character <|-- Enemy
+
+    class Character{
+        +Move()
+        +Attack()
+    }
+    class Player{
+        +Health
+        +Inventory
+        +Controls()
+    }
+    class Enemy{
+        +Update()
+    }
+
+    %% Enemy's types
+    Enemy <|-- StandingEnemy
+    Enemy <|-- PatrollingEnemy
+    Enemy <|-- SkeletosEnemy
+
+        
+    %% Enemy tiles
+    note for EnemyTile "Factories in the factory pattern"
+    EnemyTile <|-- StandingEnemyTile
+    EnemyTile <|-- PatrollingEnemyTile
+    EnemyTile <|-- SkeletonEnemyTile
+
+</pre>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const config = {
+      startOnLoad: true,
+      securityLevel: 'loose',
+    };
+  mermaid.initialize(config);
+</script>

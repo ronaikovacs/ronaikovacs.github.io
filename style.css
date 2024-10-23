@@ -1,0 +1,17 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: inherit;
+    height: inherit;
+    align-content: center;
+}
+
+[seamless] {
+    border: none;
+    height: inherit;
+    width: inherit;
+    align-self: center;
+}

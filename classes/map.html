@@ -1,0 +1,69 @@
+
+Class diagram for the game map
+<pre class="mermaid">
+  classDiagram
+  %%direction RL
+
+  class Level
+  note for Level "See GameManager diagram"
+
+  %% The root Block class and its connections 
+  class Block {
+    +PrefabName: string
+    +Position: Vector2
+    +OnPlayerEnter()
+  }
+  Block "-Neighbours*" <-- Block
+  Block "-Start" <-- Level
+  Level *-- "Blocks*" Block
+
+  %% Block's derived types
+  class EmptyBlock
+  class FullBlock
+  class TriggerableBlock {
+    +OnTrigger()
+  }
+  Block <|-- EmptyBlock
+  Block <|-- FullBlock
+  Block <|-- TriggerableBlock
+
+  %% Trap and its derived types
+  class TrapBlock{
+    -int damage
+  }
+  class PortalBlock
+  class LootBlock
+  TriggerableBlock <|-- TrapBlock
+  TriggerableBlock <|-- PortalBlock
+  TriggerableBlock <|-- LootBlock
+  TriggerableBlock <|-- EnemyTile
+
+  note for EnemyTile "See Character diagram"
+
+  %% Trap's derived types
+  TrapBlock <|-- SpikeBlock
+  TrapBlock <|-- SawBlock
+  TrapBlock <|-- BombBlock
+  TrapBlock <|-- FallingTileBlock
+
+  %% Portal's derived classes
+  PortalBlock <|-- Stairs
+
+  %% Loot's derived classes
+  LootBlock <|-- SwordBlock
+  LootBlock <|-- PotionBlock
+  LootBlock <|-- GoldBlock
+
+
+</pre>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const config = {
+    startOnLoad: true,
+    securityLevel: 'loose',
+  };
+  mermaid.initialize(config);
+</script>
+
+ 
