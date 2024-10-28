@@ -1,61 +1,69 @@
+<div>
+  <pre class="mermaid">
+    classDiagram
+    %%direction RL
 
-Class diagram for the game map
-<pre class="mermaid">
-  classDiagram
-  %%direction RL
+    class Level
+    note for Level "See GameManager diagram"
 
-  class Level
-  note for Level "See GameManager diagram"
+    %% The root Block class and its connections 
+    class Block {
+      +PrefabName: string
+      +Position: Vector2
+      +CheckNeighbours() bool
+    }
+    Block "-Start" <-- Level
+    Level *-- "Blocks[*,*]" Block
+    abstract Block
 
-  %% The root Block class and its connections 
-  class Block {
-    +PrefabName: string
-    +Position: Vector2
-    +OnPlayerEnter()
-  }
-  Block "-Neighbours*" <-- Block
-  Block "-Start" <-- Level
-  Level *-- "Blocks*" Block
+    %% DTO for Blocks
+    class BlockDto{
+      +ToString() string
+    }
 
-  %% Block's derived types
-  class EmptyBlock
-  class FullBlock
-  class TriggerableBlock {
-    +OnTrigger()
-  }
-  Block <|-- EmptyBlock
-  Block <|-- FullBlock
-  Block <|-- TriggerableBlock
+    Block -- BlockDto : inner class
+    note for BlockDto "The DTO should use System.Text.Json"
 
-  %% Trap and its derived types
-  class TrapBlock{
-    -int damage
-  }
-  class PortalBlock
-  class LootBlock
-  TriggerableBlock <|-- TrapBlock
-  TriggerableBlock <|-- PortalBlock
-  TriggerableBlock <|-- LootBlock
-  TriggerableBlock <|-- EnemyTile
+    %% Block's derived types
+    class EmptyBlock
+    class FullBlock
+    class TriggerableBlock {
+      +OnEnter()
+    }
+    Block <|-- EmptyBlock
+    Block <|-- FullBlock
+    Block <|-- TriggerableBlock
 
-  note for EnemyTile "See Character diagram"
+    %% Trap and its derived types
+    class TrapBlock{
+      -int damage
+    }
+    class PortalBlock
+    class LootBlock
+    TriggerableBlock <|-- TrapBlock
+    TriggerableBlock <|-- PortalBlock
+    TriggerableBlock <|-- LootBlock
+    TriggerableBlock <|-- EnemyTile
 
-  %% Trap's derived types
-  TrapBlock <|-- SpikeBlock
-  TrapBlock <|-- SawBlock
-  TrapBlock <|-- BombBlock
-  TrapBlock <|-- FallingTileBlock
+    note for EnemyTile "See Character diagram"
 
-  %% Portal's derived classes
-  PortalBlock <|-- Stairs
+    %% Trap's derived types
+    TrapBlock <|-- SpikeBlock
+    TrapBlock <|-- SawBlock
+    TrapBlock <|-- BombBlock
+    TrapBlock <|-- FallingTileBlock
 
-  %% Loot's derived classes
-  LootBlock <|-- SwordBlock
-  LootBlock <|-- PotionBlock
-  LootBlock <|-- GoldBlock
+    %% Portal's derived classes
+    PortalBlock <|-- Stairs
+
+    %% Loot's derived classes
+    LootBlock <|-- SwordBlock
+    LootBlock <|-- PotionBlock
+    LootBlock <|-- GoldBlock
 
 
-</pre>
+  </pre>
+</div>
 
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
